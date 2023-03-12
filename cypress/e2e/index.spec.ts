@@ -1,17 +1,19 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 function get(id: string): ReturnType<typeof cy.get> {
 	return cy.findByTestId(id)
 }
 
 const IMAGE_URL = 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6'
 const AUTHOR_URL = 'https://unsplash.com/@cenali'
-
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+const { VITE_HOME_PATH } = import.meta.env
 describe('Basic flow', () => {
 	beforeEach(() => {
 		cy.viewport('macbook-13')
 	})
 
 	it('Should render the fruit gallery correctly', () => {
-		cy.visit('/')
+		cy.visit(`${VITE_HOME_PATH}/`)
 
 		cy.findAllByTestId('FruitCard').should('have.length', 6)
 		cy.findAllByTestId('FruitCardImage')

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+import { useQuery } from '@tanstack/react-query'
 import getFruits from 'api/getFruits'
 import Head from 'components/Head'
 import ImageAttribution from 'components/ImageAttribution'
 import LoadingOrError from 'components/LoadingOrError'
 import type { ReactElement } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { useMediaQuery } from 'utils'
 
@@ -13,7 +14,7 @@ const MOBILE_IMAGE_HEIGHT_PERCENTAGE = 0.3
 export default function DetailsPage(): ReactElement {
 	const isTabletAndUp = useMediaQuery('(min-width: 600px)')
 	const { fruitName } = useParams()
-
+	const { VITE_HOME_PATH } = import.meta.env
 	const { isLoading, isError, error, data } = useQuery(['fruits'], getFruits)
 	if (isLoading || isError) {
 		return <LoadingOrError error={error as Error} />
@@ -54,7 +55,11 @@ export default function DetailsPage(): ReactElement {
 					<ImageAttribution author={fruit.image.author} />
 				</div>
 				<div className='my-8 sm:my-0 sm:ml-16'>
-					<Link data-testid='BackLink' to='/' className='flex items-center'>
+					<Link
+						data-testid='BackLink'
+						to={`${VITE_HOME_PATH}/`}
+						className='flex items-center'
+					>
 						<img src='/icons/arrow-left.svg' alt='' className='h-5 w-5' />
 						<span className='ml-4 text-xl'>Back</span>
 					</Link>

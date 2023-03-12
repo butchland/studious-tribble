@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from 'App'
@@ -5,7 +6,8 @@ import renderWithProviders from 'testUtils'
 
 describe('<App />', () => {
 	it('renders', async () => {
-		window.history.pushState({}, 'Home', '/')
+		const { VITE_HOME_PATH } = import.meta.env
+		window.history.pushState({}, 'Home', `${VITE_HOME_PATH}/`)
 		renderWithProviders(<App />, false)
 
 		await expect(screen.findByText('Apple')).resolves.toBeInTheDocument()
