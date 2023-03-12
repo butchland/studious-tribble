@@ -25,6 +25,11 @@ jobs:
       - name: Install dependencies
         run: pnpm i && pnpm cypress install
 
+      - name: Create .env file
+        run: |
+          touch .env
+          cp .env.prod .env
+
       - name: Validate
         run: pnpm run-p lint test:ci test:e2e:ci
         env:

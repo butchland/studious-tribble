@@ -26,8 +26,8 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
-          echo VITE_HOME_PATH=$VITE_HOME_PATH >> .env
-          echo $VITE_HOME_PATH
+          cp .env.prod .env
+
         env:
           VITE_HOME_PATH: ${{ env.VITE_HOME_PATH }}
 
