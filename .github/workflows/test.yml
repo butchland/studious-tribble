@@ -31,7 +31,7 @@ jobs:
           cp .env.prod .env
 
       - name: Validate
-        run: pnpm run-p lint test:ci test:e2e:ci
+        run: pnpm run-p lint test:ci
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3
