@@ -23,18 +23,8 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      - name: Create .env file
-        run: |
-          touch .env
-          cp .env.prod .env
-
-        env:
-          VITE_HOME_PATH: ${{ env.VITE_HOME_PATH }}
-
       - name: Build project
         run: pnpm build
-        env:
-          VITE_HOME_PATH: ${{ env.VITE_HOME_PATH }}
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
