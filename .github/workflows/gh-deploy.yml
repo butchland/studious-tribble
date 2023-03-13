@@ -1,5 +1,5 @@
-name: Deploy-GH-Pages
 # Update gh deployment using reference: https://vitejs.dev/guide/static-deploy.html#github-pages
+name: Deploy-GH-Pages
 on:
   # Runs on pushes targeting the default branch
   push:
