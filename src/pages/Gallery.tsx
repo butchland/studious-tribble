@@ -1,12 +1,30 @@
+import { useQuery } from '@tanstack/react-query'
 import getFruits from 'api/getFruits'
+import getGenDate from 'api/getGenDate'
 import Fruit from 'components/Fruit'
 import Head from 'components/Head'
 import LoadingOrError from 'components/LoadingOrError'
 import type { ReactElement } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
+import type { IGenDate } from 'types'
 
 export default function GalleryPage(): ReactElement {
 	const { isLoading, isError, error, data } = useQuery(['fruits'], getFruits)
+	const [gendata, setGendata] = useState<IGenDate | null>({
+		update: 'No update'
+	})
+
+	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+		const fetchData = async () => {
+			const nextGenData: IGenDate = await getGenDate()
+			// const nextGenData: IGenDate = { update: '2022-03-02 00:00:00 PHT' }
+			setGendata(nextGenData)
+		}
+
+		void fetchData()
+	}, [])
+
 	if (isLoading || isError) {
 		return <LoadingOrError error={error as Error} />
 	}
@@ -19,6 +37,7 @@ export default function GalleryPage(): ReactElement {
 					<Fruit key={`FruitCard-${fruit.name}`} fruit={fruit} index={index} />
 				))}
 			</div>
+			<div>{gendata?.update}</div>
 		</>
 	)
 }
