@@ -21,7 +21,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm i && cp .env.github .env
 
       - name: Build project
         run: pnpm build
