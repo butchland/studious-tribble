@@ -6,18 +6,15 @@ import Head from 'components/Head'
 import LoadingOrError from 'components/LoadingOrError'
 import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
-import type { IGenDate } from 'types'
 
 export default function GalleryPage(): ReactElement {
 	const { isLoading, isError, error, data } = useQuery(['fruits'], getFruits)
-	const [gendata, setGendata] = useState<IGenDate | null>({
-		update: 'No update'
-	})
+	const [gendata, setGendata] = useState<string | null>('No call to fetchData')
 
 	useEffect(() => {
 		// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 		const fetchData = async () => {
-			const nextGenData: IGenDate = await getGenDate()
+			const nextGenData: string = await getGenDate()
 			// const nextGenData: IGenDate = { update: '2022-03-02 00:00:00 PHT' }
 			setGendata(nextGenData)
 		}
@@ -37,7 +34,7 @@ export default function GalleryPage(): ReactElement {
 					<Fruit key={`FruitCard-${fruit.name}`} fruit={fruit} index={index} />
 				))}
 			</div>
-			<div>{gendata?.update}</div>
+			<div>{gendata}</div>
 		</>
 	)
 }
