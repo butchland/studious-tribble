@@ -1,6 +1,7 @@
+# Update gh deployment using reference: https://vitejs.dev/guide/static-deploy.html#github-pages
 name: Deploy-GH-Pages
-
 on:
+  # Runs on pushes targeting the default branch
   push:
     branches: [main]
   workflow_dispatch:
@@ -16,14 +17,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: action setup
-        uses: pnpm/action-setup@v2.2.4
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2.2.4
         with:
           version: latest
-      - name: setup node
-        uses: actions/setup-node@v3
+
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
           cache: 'pnpm'
