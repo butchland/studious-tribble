@@ -60,7 +60,11 @@ export default function DetailsPage(): ReactElement {
 						to={`${VITE_HOME_PATH}/`}
 						className='flex items-center'
 					>
-						<img src='/icons/arrow-left.svg' alt='' className='h-5 w-5' />
+						<img
+							src={`${VITE_HOME_PATH}/icons/arrow-left.svg`}
+							alt=''
+							className='h-5 w-5'
+						/>
 						<span className='ml-4 text-xl'>Back</span>
 					</Link>
 
