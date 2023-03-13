@@ -4,9 +4,7 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: [main]
-
   workflow_dispatch:
-
 
 concurrency:
   group: 'pages'
@@ -17,52 +15,40 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        name: checkout
+
       - uses: pnpm/action-setup@v2.2.4
-        name: setup actions
         with:
           version: latest
 
       - uses: actions/setup-node@v3
-        name: setup node
         with:
           node-version: '16'
           cache: 'pnpm'
-
       - name: Install dependencies
         run: pnpm i
-
       - name: Create .env file
         run: |
           touch .env
           cp .env.prod .env
-
         env:
           VITE_HOME_PATH: ${{ env.VITE_HOME_PATH }}
-
       - name: Build project
         run: pnpm build
         env:
           VITE_HOME_PATH: ${{ env.VITE_HOME_PATH }}
-
       - name: Setup Pages
         uses: actions/configure-pages@v3
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Upload dist repository
           path: './dist'
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-       with:
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-
