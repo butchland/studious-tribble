@@ -13,3 +13,6 @@ export interface IFruit {
 		value: string
 	}[]
 }
+export interface IGenDate {
+	update: string
+}

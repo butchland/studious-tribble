@@ -10,11 +10,11 @@ import { useMediaQuery } from 'utils'
 
 const DESKTOP_IMAGE_WIDTH_PERCENTAGE = 0.4
 const MOBILE_IMAGE_HEIGHT_PERCENTAGE = 0.3
+const { VITE_HOME_PATH } = import.meta.env
 
 export default function DetailsPage(): ReactElement {
 	const isTabletAndUp = useMediaQuery('(min-width: 600px)')
 	const { fruitName } = useParams()
-	const { VITE_HOME_PATH } = import.meta.env
 	const { isLoading, isError, error, data } = useQuery(['fruits'], getFruits)
 	if (isLoading || isError) {
 		return <LoadingOrError error={error as Error} />

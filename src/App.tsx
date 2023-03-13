@@ -4,11 +4,11 @@ import type { ReactElement } from 'react'
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
+const { VITE_HOME_PATH } = import.meta.env
 const Gallery = lazy(async () => import('pages/Gallery'))
 const Details = lazy(async () => import('pages/Details'))
 
 export default function App(): ReactElement {
-	const { VITE_HOME_PATH } = import.meta.env
 	return (
 		<BrowserRouter>
 			<Suspense fallback={<LoadingOrError />}>
